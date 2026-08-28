@@ -1,0 +1,17 @@
+{
+    "name": "windows11/crud-buku-tamu",
+    "autoload": {
+        "psr-4": {
+            "Windows11\\CrudBukuTamu\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "diffa",
+            "email": "diffa142@gmail.com"
+        }
+    ],
+    "require": {
+        "phpoffice/phpspreadsheet": "^5.9"
+    }
+}

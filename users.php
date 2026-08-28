@@ -92,14 +92,16 @@ include_once('templates/header.php');
                                 <td><?= $no++; ?></td>
                                 <td><?= $user['username']; ?></td>
                                 <td><?= $user['user_role']; ?></td>
-                                <td>
-                                    <button type="button" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#gantiPassword" data-id="<?= $user['id_user'] ?>">
-                                        <span class="text">Ganti Password</span>
+                                                                <td class="text-nowrap">
+                                    <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#gantiPassword" data-id="<?= $user['id_user'] ?>" title="Ganti Password">
+                                        <i class="fas fa-key"></i> Password
                                     </button>
-
-                                    <a class="btn btn-success" href="edit-user.php?id=<?= $user['id_user'] ?>">Ubah</a>
-
-                                    <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-danger" href="hapus-user.php?id=<?= $user['id_user'] ?>">Hapus</a>
+                                    <a class="btn btn-sm btn-warning" href="edit-user.php?id=<?= $user['id_user'] ?>" title="Ubah">
+                                        <i class="fas fa-pen"></i> Ubah
+                                    </a>
+                                    <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-sm btn-danger" href="hapus-user.php?id=<?= $user['id_user'] ?>" title="Hapus">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

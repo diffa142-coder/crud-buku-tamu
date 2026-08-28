@@ -37,117 +37,115 @@ include_once('templates/header.php');
 ?>
 
 <style>
+    /* ============================= */
+    /* TAMPILAN SAAT CETAK */
+    /* ============================= */
 
-/* ============================= */
-/* TAMPILAN SAAT CETAK */
-/* ============================= */
+    @media print {
 
-@media print {
+        /* Sembunyikan sidebar */
+        #accordionSidebar {
+            display: none !important;
+        }
 
-    /* Sembunyikan sidebar */
-    #accordionSidebar {
-        display: none !important;
+        /* Sembunyikan topbar */
+        .topbar {
+            display: none !important;
+        }
+
+        /* Sembunyikan semua tombol */
+        .btn {
+            display: none !important;
+        }
+
+        /* Sembunyikan form periode */
+        .row {
+            display: none !important;
+        }
+
+        /* Sembunyikan footer */
+        footer {
+            display: none !important;
+        }
+
+        /* Hilangkan margin dan padding */
+        #content-wrapper,
+        #content {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+
+        .container-fluid {
+            width: 100% !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* Hilangkan shadow card */
+        .card {
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        /* Judul laporan */
+        h1 {
+            text-align: center;
+            color: black !important;
+            margin-bottom: 20px;
+        }
+
+        /* Judul tabel */
+        .card-header {
+            text-align: center;
+            color: black !important;
+        }
+
+        /* Tabel */
+        table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            font-size: 12px !important;
+        }
+
+        table th,
+        table td {
+            border: 1px solid black !important;
+            padding: 8px !important;
+            color: black !important;
+        }
+
+        table th {
+            background-color: #eeeeee !important;
+        }
+
+        /* Sembunyikan fitur DataTables */
+        .dataTables_length,
+        .dataTables_filter,
+        .dataTables_info,
+        .dataTables_paginate {
+            display: none !important;
+        }
+
+        /* Hilangkan background */
+        body {
+            background: white !important;
+        }
+
     }
 
-    /* Sembunyikan topbar */
-    .topbar {
-        display: none !important;
+
+    /* ============================= */
+    /* TAMPILAN NORMAL */
+    /* ============================= */
+
+    @media screen {
+
+        .laporan-print {
+            display: none;
+        }
+
     }
-
-    /* Sembunyikan semua tombol */
-    .btn {
-        display: none !important;
-    }
-
-    /* Sembunyikan form periode */
-    .row {
-        display: none !important;
-    }
-
-    /* Sembunyikan footer */
-    footer {
-        display: none !important;
-    }
-
-    /* Hilangkan margin dan padding */
-    #content-wrapper,
-    #content {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-    }
-
-    .container-fluid {
-        width: 100% !important;
-        padding: 0 !important;
-        margin: 0 !important;
-    }
-
-    /* Hilangkan shadow card */
-    .card {
-        box-shadow: none !important;
-        border: none !important;
-    }
-
-    /* Judul laporan */
-    h1 {
-        text-align: center;
-        color: black !important;
-        margin-bottom: 20px;
-    }
-
-    /* Judul tabel */
-    .card-header {
-        text-align: center;
-        color: black !important;
-    }
-
-    /* Tabel */
-    table {
-        width: 100% !important;
-        border-collapse: collapse !important;
-        font-size: 12px !important;
-    }
-
-    table th,
-    table td {
-        border: 1px solid black !important;
-        padding: 8px !important;
-        color: black !important;
-    }
-
-    table th {
-        background-color: #eeeeee !important;
-    }
-
-    /* Sembunyikan fitur DataTables */
-    .dataTables_length,
-    .dataTables_filter,
-    .dataTables_info,
-    .dataTables_paginate {
-        display: none !important;
-    }
-
-    /* Hilangkan background */
-    body {
-        background: white !important;
-    }
-
-}
-
-
-/* ============================= */
-/* TAMPILAN NORMAL */
-/* ============================= */
-
-@media screen {
-
-    .laporan-print {
-        display: none;
-    }
-
-}
-
 </style>
 
 
@@ -253,22 +251,30 @@ include_once('templates/header.php');
                 Tabel Histori Tamu
             </span>
 
+            <div>
+                <!-- Tombol Export -->
+                <a href="<?= isset($_POST['tampilkan']) ? "export-laporan.php?cari=true&p_awal=$p_awal&p_akhir=$p_akhir" : 'export-laporan.php'; ?>"
+                    target="_blank" class="btn btn-success">
+                    <i class="fas fa-file-excel"></i>
+                    Export
+                </a>
 
-            <!-- Tombol Cetak -->
-            <?php if (isset($_POST['tampilkan']) && count($buku_tamu) > 0) : ?>
+                <!-- Tombol Cetak -->
+                <?php if (isset($_POST['tampilkan']) && count($buku_tamu) > 0) : ?>
 
-                <button
-                    onclick="window.print()"
-                    class="btn btn-primary">
+                    <button
+                        onclick="window.print()"
+                        class="btn btn-primary">
 
-                    <i class="fas fa-print"></i>
-                    Cetak
+                        <i class="fas fa-print"></i>
+                        Cetak
 
-                </button>
+                    </button>
 
-            <?php endif; ?>
+                <?php endif; ?>
+            </div>
 
-        </div>
+        </div>   
 
 
         <div class="card-body">

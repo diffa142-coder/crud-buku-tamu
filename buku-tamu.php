@@ -50,25 +50,6 @@ include_once('templates/header.php');
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">Buku Tamu</h1>
 
-        <?php
-        // jika ada tombol simpan
-        if (isset($_POST['simpan'])) {
-            if (tambah_tamu($_POST) > 0) {
-        ?>
-                <div class="alert alert-success" role="alert">
-                    Data berhasil disimpan!
-                </div>
-        <?php
-            } else {
-            ?>
-                <div class="alert alert-danger" role="alert">
-                    Data gagal disimpan!
-                </div>
-        <?php
-            }
-        }
-        ?>
-
     <?= isset($alert) ? $alert : ''; ?>
 
     <!-- DataTales Example -->
@@ -101,19 +82,23 @@ include_once('templates/header.php');
                         $no = 1;
                         $buku_tamu = query("SELECT * FROM buku_tamu");
                         foreach ($buku_tamu as $tamu) : ?>
-                        <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= $tamu['tanggal']; ?></td>
-                            <td><?= $tamu['nama_tamu']; ?></td>
-                            <td><?= $tamu['alamat']; ?></td>
-                            <td><?= $tamu['no_hp']; ?></td>
-                            <td><?= $tamu['bertemu']; ?></td>
-                            <td><?= $tamu['kepentingan']; ?></td>
-                            <td>
-                                <a href="edit-tamu.php?id=<?= $tamu['id_tamu']; ?>" class="btn btn-sm btn-warning">Edit</a>
-                                <a href="hapus-tamu.php?id=<?= $tamu['id_tamu']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= $tamu['tanggal']; ?></td>
+                                <td><?= $tamu['nama_tamu']; ?></td>
+                                <td><?= $tamu['alamat']; ?></td>
+                                <td><?= $tamu['no_hp']; ?></td>
+                                <td><?= $tamu['bertemu']; ?></td>
+                                <td><?= $tamu['kepentingan']; ?></td>
+                                <td class="text-nowrap">
+                                    <a href="edit-tamu.php?id=<?= $tamu['id_tamu']; ?>" class="btn btn-sm btn-warning" title="Ubah">
+                                        <i class="fas fa-pen"></i> Ubah
+                                    </a>
+                                    <a href="hapus-tamu.php?id=<?= $tamu['id_tamu']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?')" title="Hapus">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
