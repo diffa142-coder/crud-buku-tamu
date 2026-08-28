@@ -1,6 +1,14 @@
 <?php
+session_start();
+
+if ($_SESSION['role'] != 'admin') {
+    header("Location: index.php");
+    exit;
+}
+
 require_once('koneksi.php');
 require_once('function.php');
+
 
 // jika ada id_user di URL
 if (isset($_GET['id'])) {

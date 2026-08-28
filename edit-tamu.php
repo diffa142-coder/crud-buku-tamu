@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if ($_SESSION['role'] != 'operator') {
+    header("Location: index.php");
+    exit;
+}
 
 require_once('koneksi.php');
 require_once('function.php');

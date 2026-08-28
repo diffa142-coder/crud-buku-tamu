@@ -1,6 +1,13 @@
 <?php
+session_start();
+
 require_once('koneksi.php');
 require_once('function.php');
+
+if ($_SESSION['role'] != 'operator') {
+    header("Location: index.php");
+    exit;
+}
 
 // mengambil data tamu dengan kode terbesar
 $query = mysqli_query($koneksi, "SELECT max(id_tamu) as kodeTerbesar FROM buku_tamu");

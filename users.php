@@ -1,6 +1,24 @@
 <?php
+session_start();
+
+if ($_SESSION['role'] != 'admin') {
+    header("Location: index.php");
+    exit;
+}
+
 require_once('koneksi.php');
 require_once('function.php');
+
+// jika tombol ganti password ditekan
+if (isset($_POST['ganti_password'])) {
+    if (ganti_password($_POST) > 0) {
+        header("Location: users.php?sukses=1");
+        exit;
+    } else {
+        header("Location: users.php?gagal=1");
+        exit;
+    }
+}
 
 // generate kode user otomatis
 $query = mysqli_query($koneksi, "SELECT max(id_user) as kodeTerbesar FROM users");
@@ -70,18 +88,20 @@ include_once('templates/header.php');
                         $no = 1;
                         $users = query("SELECT * FROM users");
                         foreach ($users as $user) : ?>
-                        <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= $user['username']; ?></td>
-                            <td><?= $user['user_role']; ?></td>
-                            <td>
-                                <button type="button" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#gantiPassword" data-id="<?= $user['id_user'] ?>">
-                                <span class="text">Ganti Password</span>
-                            </button>
-                                <a class="btn btn-success" href="edit-user.php?id=<?= $user['id_user'] ?>">Ubah</a>
-                                <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-danger" href="hapus-user.php?id=<?= $user['id_user'] ?>">Hapus</a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td><?= $no++; ?></td>
+                                <td><?= $user['username']; ?></td>
+                                <td><?= $user['user_role']; ?></td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-icon-split" data-toggle="modal" data-target="#gantiPassword" data-id="<?= $user['id_user'] ?>">
+                                        <span class="text">Ganti Password</span>
+                                    </button>
+
+                                    <a class="btn btn-success" href="edit-user.php?id=<?= $user['id_user'] ?>">Ubah</a>
+
+                                    <a onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-danger" href="hapus-user.php?id=<?= $user['id_user'] ?>">Hapus</a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -148,7 +168,7 @@ include_once('templates/header.php');
             </div>
             <div class="modal-body">
                 <form method="post" action="">
-                    <input type="hidden" name="id_user" id="id_user">
+                    <input type="hidden" name="id_user" id="id_user_password">
                     <div class="form-group row">
                         <label for="password" class="col-sm-4 col-form-label">Password Baru</label>
                         <div class="col-sm-7">
@@ -168,3 +188,12 @@ include_once('templates/header.php');
 <?php
 include_once('templates/footer.php');
 ?>
+
+<script>
+$('#gantiPassword').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+
+    $('#id_user_password').val(id);
+});
+</script>

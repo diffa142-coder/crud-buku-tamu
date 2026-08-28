@@ -50,9 +50,9 @@ if (isset($_POST['login'])) {
     <div class="container">
 
         <?php if (isset($error) && $error) : ?>
-        <div class="alert alert-danger mt-3" role="alert">
-            Username atau password salah!
-        </div>
+            <div class="alert alert-danger mt-3" role="alert">
+                Username atau password salah!
+            </div>
         <?php endif; ?>
 
         <!-- Outer Row -->
